@@ -1,0 +1,136 @@
+.courseIntro {
+  display: flex;
+  justify-content:space-between;
+}
+.courseInfo {
+  position: relative;
+}
+.courseTitle {
+  margin-bottom: 15px;
+}
+.courseDesc {
+  text-align: justify;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3; /* تعداد خطوط مورد نظر */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.coursePayment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.coursePayment button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background-color: #e2852e;
+  color: white;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.coursePayment button:hover {
+  background-color: #a45f1f;
+}
+.coursePrice {
+  font-weight: 700;
+  font-size: 20px;
+  padding: 0 10px;
+}
+.courseIntro > div {
+  width: 46%;
+}
+.courseMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.courseDetailBox {
+  box-shadow: 0 8px 24px rgba(94, 129, 209, 0.16);
+  width: 45%;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* ======== */
+
+.purchasedBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #10b981;
+  background: #ecfdf5;
+  padding: 10px;
+  border-radius: 16px;
+  border: 2px solid #10b981;
+}
+
+.startLearningBtn {
+  background: #10b981;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: auto;
+  transition: all 0.3s;
+}
+
+.startLearningBtn:hover {
+  background: #059669;
+}
+
+.enrollBtn {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 1.2rem 3rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s;
+}
+
+.enrollBtn:hover:not(:disabled) {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+}
+
+.freeEnrollBtn {
+  background: #10b981;
+}
+
+.priceBox {
+  text-align: center;
+}
+
+.originalPrice {
+  color: #94a3b8;
+  margin-left: 1rem;
+}
+
+.finalPrice {
+  font-size: 25px;
+  font-weight: bold;
+  /* color: #f59e0b; */
+}
