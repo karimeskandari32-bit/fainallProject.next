@@ -4,10 +4,8 @@ import styles from "./lastCourses.module.css";
 import CourseCard from "@/components/ui/CourseCard";
 
 export default function LastCourses() {
-
-      const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchLatestCourses = async () => {
@@ -16,7 +14,6 @@ export default function LastCourses() {
         if (!res.ok) throw new Error();
 
         const data = await res.json();
-        console.log(data)
         setCourses(data.courses || []);
       } catch (err) {
         console.error("Error fetching latest courses:", err);
@@ -29,22 +26,20 @@ export default function LastCourses() {
     fetchLatestCourses();
   }, []);
 
-
   return (
-    <div className="container section">
+    <div className="container section dark:bg-slate-950">
       <div className="sectionHeader">
         <p className="sectionTitle">آخرین دوره های آموزشی</p>
         <p className="sectionMore">همه دوره ها</p>
       </div>
       <div className={styles.lastCourses}>
-           {loading ? (
+        {loading ? (
           <p>در حال لود دوره ها</p>
         ) : (
           courses.map((course) => (
             <CourseCard key={course._id} course={course} />
           ))
         )}
-     
       </div>
     </div>
   );

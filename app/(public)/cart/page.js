@@ -71,7 +71,7 @@ export default function Cart() {
   }
 
   return (
-    <div className={styles.cartPage}>
+    <div className={`${styles.cartPage} dark:bg-slate-950`}>
       <div className={styles.header}>
         <h1 className={styles.title}>سبد خرید</h1>
         <Link href="/courses" className={styles.backLink}>
@@ -80,7 +80,7 @@ export default function Cart() {
         </Link>
       </div>
 
-      <div className={styles.cartContainer}>
+      <div className="cartContainer dark:bg-slate-950">
         <div className={styles.cartItems}>
           {cart.map((course) => (
             <div key={course._id} className={styles.cartItem}>

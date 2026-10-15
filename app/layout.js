@@ -3,6 +3,8 @@
 import { AuthProvider } from "@/authContet/authContext";
 import { CartProvider } from "@/authContet/CartContext";
 import {Toaster} from "react-hot-toast";
+import { ThemeProvider } from "next-themes";
+import './globals.css'
 
 
 
@@ -15,14 +17,21 @@ import {Toaster} from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa" dir="rtl">
-      <body>
+    <html lang="fa" dir="rtl"  suppressHydrationWarning>
+      <body className="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors">
+         <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
         <AuthProvider>
          <CartProvider>
            {children}
-        <Toaster position="top-center" ricchColors/>
+        <Toaster position="top-center" richColors/>
          </CartProvider>
         </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

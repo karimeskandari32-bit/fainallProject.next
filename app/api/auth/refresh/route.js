@@ -61,7 +61,7 @@ export async function POST(params){
              user:{
                 id:user._id.toString(),
                 phone:user.phone,
-                role:user.role || "user,"
+                role:user.role || "user"
 
              }
            }
@@ -69,7 +69,7 @@ export async function POST(params){
 
         response.cookies.set("accessToken" , newAccessToken,{
             httpOnly:true,
-            secure:process.env.MODE_ENV === "production",
+            secure:process.env.NODE_ENV === "production",
               sameSite:"strict",
               maxAge:15*60 , 
               params:"/"

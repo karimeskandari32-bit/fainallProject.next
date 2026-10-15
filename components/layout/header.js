@@ -14,6 +14,7 @@ import { FiBox } from "react-icons/fi";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useAuth } from "@/authContet/authContext";
 import { useCart } from "@/authContet/CartContext";
+import ThemeToggle from "../shared/ThemeToggle";
 
 
 export default function Header() {
@@ -23,9 +24,11 @@ export default function Header() {
 
   
   return (
-    <header className={styles.header}>
+        <header className="headere dark:bg-slate-900 dark:border-slate-800 text-slate-800 dark:text-white">
+
       <div className={styles.headerTop}>
         <img src="/images/image.png" />
+        <ThemeToggle/>
         <ul>
           <li>
             <Link href="/">

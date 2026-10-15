@@ -1,23 +1,28 @@
 .comments {
   margin: 4rem 0;
   padding: 2.5rem;
-  background: #ffffff;
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   direction: rtl;
 }
+
 .header {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 16px 0 32px;
 }
+
 .title {
   font-size: 1.7rem;
   font-weight: bold;
-  color: #1e293b;
+  color: var(--foreground);
   display: inline-block;
 }
+
 .addCommentBtn {
   background: #e2852e;
   color: white;
@@ -37,10 +42,11 @@
 }
 
 .commentItem {
-  background: #f8fafc;
+  background: var(--muted);
+  color: var(--foreground);
   padding: 1.8rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
 }
 
 .user {
@@ -67,7 +73,7 @@
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #e2e8f0;
+  border: 3px solid var(--border);
 }
 
 .avatar img {
@@ -90,17 +96,17 @@
 
 .userName {
   font-weight: 600;
-  color: #1e293b;
+  color: var(--foreground);
   font-size: 1.1rem;
 }
 
 .date {
-  color: #64748b;
+  color: var(--muted-foreground);
   font-size: 0.95rem;
 }
 
 .commentText {
-  color: #334155;
+  color: var(--foreground);
   line-height: 1.8;
   font-size: 16px;
   margin: 0;
@@ -109,7 +115,7 @@
 .empty {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--muted-foreground);
   font-size: 1.2rem;
 }
 
@@ -117,19 +123,21 @@
 .commentForm {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 2px dashed #e2e8f0;
+  border-top: 2px dashed var(--border);
 }
 
 .formTitle {
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
-  color: #1e293b;
+  color: var(--foreground);
 }
 
 .textarea {
   width: 100%;
   padding: 1rem;
-  border: 2px solid #e2e8f0;
+  background: var(--background);
+  color: var(--foreground);
+  border: 2px solid var(--border);
   border-radius: 12px;
   font-size: 1.1rem;
   resize: vertical;
@@ -147,8 +155,8 @@
 .cancelBtn,
 .submitBtn {
   width: 130px;
-  background: #e2e8f0;
-  color: #334155;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
   padding: 0.9rem 2rem;
   border: none;
   border-radius: 50px;
@@ -158,8 +166,9 @@
 }
 
 .cancelBtn:hover {
-  background: #cbd5e1;
+  background: var(--accent);
 }
+
 .submitBtn {
   background: #3b82f6;
   color: white;
@@ -175,31 +184,41 @@
   cursor: not-allowed;
 }
 
-.message {
+/* پیام‌های موفقیت و خطا (با رنگ شفاف تا در هر دو تم خوانا باشند) */
+.message,
+.modalMessage {
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 8px;
   font-weight: 600;
 }
 
-.message.success {
-  background: #d1fae5;
-  color: #065f46;
+.modalMessage {
+  text-align: center;
 }
 
-.message.error {
-  background: #fee2e2;
-  color: #991b1b;
+.message.success,
+.modalMessage.success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.message.error,
+.modalMessage.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
 }
 
 .loginPrompt {
   margin-top: 3rem;
   padding: 2rem;
-  background: #fffbeb;
+  background: rgba(245, 158, 11, 0.1);
   border: 2px dashed #f59e0b;
   border-radius: 12px;
   text-align: center;
-  color: #92400e;
+  color: var(--foreground);
   font-size: 1.1rem;
 }
 
@@ -207,22 +226,6 @@
   color: #3b82f6;
   font-weight: bold;
   text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .comments {
-    padding: 1.5rem;
-  }
-
-  .commentHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .userInfo {
-    margin-bottom: 0.8rem;
-  }
 }
 
 /* مودال */
@@ -241,7 +244,9 @@
 }
 
 .modal {
-  background: white;
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
   width: 90%;
   max-width: 600px;
   border-radius: 16px;
@@ -272,8 +277,8 @@
 
 .modalHeader {
   padding: 1.5rem 2rem;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -282,14 +287,14 @@
 .modalHeader h3 {
   margin: 0;
   font-size: 1.6rem;
-  color: #1e293b;
+  color: var(--foreground);
 }
 
 .modalClose {
   background: none;
   border: none;
   font-size: 2.2rem;
-  color: #64748b;
+  color: var(--muted-foreground);
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -309,7 +314,9 @@
 .modalTextarea {
   width: 100%;
   padding: 1.2rem;
-  border: 2px solid #e2e8f0;
+  background: var(--background);
+  color: var(--foreground);
+  border: 2px solid var(--border);
   border-radius: 12px;
   font-size: 1.1rem;
   resize: vertical;
@@ -332,41 +339,6 @@
 
 .modal .submitBtn {
   padding: 0.9rem 2rem;
-}
-
-.modalMessage {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-}
-
-.modalMessage.success {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.modalMessage.error {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.loginPrompt {
-  margin-top: 3rem;
-  padding: 2rem;
-  background: #fffbeb;
-  border: 2px dashed #f59e0b;
-  border-radius: 12px;
-  text-align: center;
-  color: #92400e;
-  font-size: 1.1rem;
-}
-
-.loginLink {
-  color: #3b82f6;
-  font-weight: bold;
-  text-decoration: underline;
 }
 
 /* پاسخ ادمین داخل باکس اصلی */
@@ -396,7 +368,23 @@
 
 .replyText {
   margin: 0;
-  color: #581c87;
+  color: var(--foreground);
   line-height: 1.7;
   font-size: 1.05rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comments {
+    padding: 1.5rem;
+  }
+
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .userInfo {
+    margin-bottom: 0.8rem;
+  }
 }

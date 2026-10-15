@@ -147,7 +147,7 @@ export default function AuthPage(){
       <div className={styles.authForm}>
         {!isCodeSent && (
           <>
-            <h2>نکست وان کد</h2>
+           
             <h3>ورود | ثبت نام</h3>
             <p>لطفا شماره موبایل خود را وارد کنید</p>
             <input

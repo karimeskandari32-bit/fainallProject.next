@@ -24,7 +24,7 @@ export default function CourseDescription({fullDescription}){
   });
 
     return(
-         <section className={`section`}>
+         <section className="sectoin dark:bg-slate-950">
       <h2 className={styles.descriptionTitle}>توضیحات کامل دوره</h2>
 
       <div dangerouslySetInnerHTML={{__html :  cleanHtml }} />
