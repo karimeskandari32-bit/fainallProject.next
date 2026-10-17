@@ -6,6 +6,7 @@ import CourseCard from "@/components/ui/CourseCard";
 export default function LastCourses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchLatestCourses = async () => {
