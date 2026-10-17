@@ -125,6 +125,18 @@ export default function AuthPage(){
 
   }
 
+  const demoInfo = (
+  <div className={styles.demoBox}>
+    <div className={styles.demoTitle}>لطفا با این اطلاعات وارد شوید</div>
+    <div>
+      شماره موبایل: <strong>09160260727</strong>
+    </div>
+    <div>
+      رمز: <strong>12345</strong>
+    </div>
+  </div>
+);
+
   
   useEffect(()=>{
     let interval;
@@ -147,6 +159,7 @@ export default function AuthPage(){
       <div className={styles.authForm}>
         {!isCodeSent && (
           <>
+          {demoInfo}
            
             <h3>ورود | ثبت نام</h3>
             <p>لطفا شماره موبایل خود را وارد کنید</p>

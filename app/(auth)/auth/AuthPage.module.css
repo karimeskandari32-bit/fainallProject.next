@@ -132,3 +132,25 @@ button:disabled {
   background-color: rgb(167, 163, 163);
   cursor: not-allowed !important;
 }
+
+.demoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  background: rgba(63, 100, 255, 0.1);
+  border: 1px dashed #3f64ff;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+.demoTitle {
+  font-weight: 700;
+  color: #3f64ff;
+}
+
+.demoBox strong {
+  letter-spacing: 1px;
+}
