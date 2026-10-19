@@ -16,6 +16,8 @@ export default function Cart() {
   const router = useRouter();
 
   const handleCheckout = async () => {
+     if (loading) return;
+  setLoading(true);
     try {
       // 1-ساخت سفارش
       const orderRes = await fetch("/api/orders", {
@@ -55,6 +57,9 @@ export default function Cart() {
     } catch (err) {
       toast.error("خطا در درگاه پرداخت");
     }
+    finally {
+    setLoading(false);
+  }
   };
 
   if (cart.length === 0) {
@@ -71,7 +76,7 @@ export default function Cart() {
   }
 
   return (
-    <div className={`${styles.cartPage} dark:bg-slate-950`}>
+   <div className={styles.cartPage}>
       <div className={styles.header}>
         <h1 className={styles.title}>سبد خرید</h1>
         <Link href="/courses" className={styles.backLink}>
@@ -80,7 +85,7 @@ export default function Cart() {
         </Link>
       </div>
 
-      <div className="cartContainer dark:bg-slate-950">
+    <div className={styles.cartContainer}>
         <div className={styles.cartItems}>
           {cart.map((course) => (
             <div key={course._id} className={styles.cartItem}>

@@ -1,5 +1,5 @@
-
 'use client'
+import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { IoSunnyOutline } from "react-icons/io5"
 import { FaMoon } from "react-icons/fa"
@@ -14,11 +14,18 @@ import { Button } from '@/components/ui/button'
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="ghost" size="icon" />}>
-        {theme === 'system' ? (
+        {!mounted ? (
+          <LuSunMoon />
+        ) : theme === 'system' ? (
           <LuSunMoon />
         ) : theme === 'dark' ? (
           <FaMoon />
