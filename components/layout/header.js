@@ -1,9 +1,10 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./header.module.css";
 
 // icons
-import { FaHome, FaMicrophone } from "react-icons/fa";
+import { FaHome, FaMicrophone, FaBars, FaTimes } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { IoSchool } from "react-icons/io5";
 import { MdArticle, MdFavoriteBorder } from "react-icons/md";
@@ -16,20 +17,37 @@ import { useAuth } from "@/authContet/authContext";
 import { useCart } from "@/authContet/CartContext";
 import ThemeToggle from "../shared/ThemeToggle";
 
-
 export default function Header() {
- const {loading , user , logout}=useAuth()
- const{cartCount}=useCart()
+  const { loading, user, logout } = useAuth();
+  const { cartCount } = useCart();
+  const [navOpen, setNavOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+  const userRef = useRef(null);
 
+  // بستن منوی پروفایل با کلیک بیرون از آن (برای موبایل)
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (userRef.current && !userRef.current.contains(e.target)) {
+        setUserOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
-  
   return (
-        <header className="headere dark:bg-slate-900 dark:border-slate-800 text-slate-800 dark:text-white">
-
+    <header className={styles.header}>
       <div className={styles.headerTop}>
-        <img src="/images/image.png" />
-        <ThemeToggle/>
-        <ul>
+        <img src="/images/image.png" alt="لوگو" />
+
+        <div className={styles.themeWrap}>
+          <ThemeToggle />
+        </div>
+
+        <ul
+          className={`${styles.nav} ${navOpen ? styles.navOpen : ""}`}
+          onClick={() => setNavOpen(false)}
+        >
           <li>
             <Link href="/">
               <FaHome />
@@ -60,9 +78,13 @@ export default function Header() {
           {loading ? (
             <div className={styles.skeletonAvatar}></div>
           ) : user ? (
-            <div className={`${styles.cardIconWrapper} ${styles.userIcon}`}>
+            <div
+              ref={userRef}
+              className={`${styles.cardIconWrapper} ${styles.userIcon}`}
+              onClick={() => setUserOpen((o) => !o)}
+            >
               <LuUserRound />
-              <UserProfileMenu logout={logout}/>
+              <UserProfileMenu logout={logout} open={userOpen} />
             </div>
           ) : (
             <Link href="/auth">
@@ -73,22 +95,30 @@ export default function Header() {
             <div
               className={`${styles.cardIconWrapper} ${styles.cartIconWrapper}`}
             >
-             {cartCount > 0 &&  <div className={styles.cartCount}>{cartCount}</div>}
+              {cartCount > 0 && (
+                <div className={styles.cartCount}>{cartCount}</div>
+              )}
               <SlBasket />
             </div>
           </Link>
         </div>
+
+        <button
+          className={styles.menuBtn}
+          onClick={() => setNavOpen((o) => !o)}
+          aria-label="منو"
+          aria-expanded={navOpen}
+        >
+          {navOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
     </header>
   );
 }
 
-
-function UserProfileMenu({logout}) {
-
-    
+function UserProfileMenu({ logout, open }) {
   return (
-    <div className={styles.userProfileMenu}>
+    <div className={`${styles.userProfileMenu} ${open ? styles.open : ""}`}>
       <ul>
         <li>
           <Link href="/profile">

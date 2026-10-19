@@ -19,7 +19,7 @@ export default function CourseCard({course}) {
         <div className={styles.courseDesc}>
           {course.shortDescription}
         </div>
-        <div className="courseTeacher">میلاد بهرامی</div>
+        <div className="courseTeacher"> محبوبه صالحی</div>
       </div>
       <div className={styles.courseFooter}>
         <div className={styles.courseStudentCount}>

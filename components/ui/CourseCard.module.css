@@ -1,59 +1,101 @@
 .courseCard {
-  width: 270px;
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
   box-shadow: rgba(94, 129, 209, 0.16) 0px 8px 24px;
   border-radius: 10px;
   position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.courseCard:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(94, 129, 209, 0.26) 0px 12px 28px;
+}
+
+.courseImg {
+  line-height: 0;
+}
+
 .courseImg img {
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
   border-radius: 10px 10px 20px 20px;
 }
+
 .courseDetails {
+  flex: 1;
   padding: 10px 15px;
 }
+
 .courseTitle h2 {
-  font-size: 18px;
-  height: 55px;
+  font-size: clamp(16px, 2vw, 18px);
+  line-height: 1.7;
+  min-height: calc(1.7em * 2);
   margin-bottom: 10px;
   cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+
 .courseDesc {
-  color: rgb(55 65 81);
+  color: var(--muted-foreground);
   display: -webkit-box;
   line-clamp: 2;
-  -webkit-line-clamp: 2; /* تعداد خطوطی که می‌خوای نمایش داده بشه */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
+  line-height: 1.8;
   margin-bottom: 10px;
 }
+
 .courseFooter {
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(128, 128, 128, 0.157);
+  gap: 10px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
 }
+
 .courseStudentCount {
   display: flex;
+  align-items: center;
   gap: 7px;
+  color: var(--muted-foreground);
 }
+
 .coursePrice {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  
 }
+
 .coursePrice span {
-  color: rgb(111, 111, 112);
-  margin-right: 5px;
+  color: var(--muted-foreground);
+  margin-inline-end: 5px;
 }
-.discountPrice del{
-  color: rgba(111, 111, 112, 0.76);
+
+.discountPrice del {
+  color: var(--muted-foreground);
+  opacity: 0.8;
   font-size: 12px;
 }
+
 .discount {
   background-color: rgb(218 30 40);
   color: white;
@@ -62,18 +104,17 @@
   font-size: 14px;
   border-radius: 8px;
 }
+
 .price {
   font-weight: 600;
+  color: var(--foreground);
 }
-.discountPrice del{
-  color: rgba(111, 111, 112, 0.76);
-  font-size: 12px;
-}
-.discountPercent{
+
+.discountPercent {
   width: 45px;
   height: 45px;
   background-color: #ff1b48;
-  border: 2px solid white;
+  border: 2px solid var(--card);
   border-radius: 100%;
   position: absolute;
   top: -10px;
@@ -82,4 +123,5 @@
   justify-content: center;
   align-items: center;
   color: white;
+  font-size: 14px;
 }

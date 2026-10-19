@@ -1,77 +1,98 @@
 .header {
-  padding: 20px 30px;
-  position: fixed;
-  left: 0;
-  right: 0;
+  position: sticky;
   top: 0;
-  background-color: white;
-  z-index: 2;
-  border-bottom: 1px solid #d7dee0;
+  z-index: 20;
+  padding: 20px clamp(16px, 4vw, 30px);
+  background-color: var(--background);
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
 }
-/* header top */
+
+/* ---------- header top ---------- */
 .headerTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
+
 .headerTop img {
   width: 60px;
+  height: auto;
+  flex-shrink: 0;
 }
-.headerTop ul {
+
+.headerTop > div {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.themeWrap {
+  gap: 0 !important;
+}
+
+/* ---------- nav ---------- */
+.nav {
   list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   gap: 40px;
-  color: rgb(76, 76, 76);
+  color: var(--foreground);
 }
-.headerTop ul li {
+
+.nav li {
   padding: 10px 5px;
   user-select: none;
 }
-.headerTop ul li a {
+
+.nav li a {
   display: flex;
   align-items: center;
   gap: 8px;
   text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+  transition: color 0.2s;
 }
-.userProfileMenu ul li:hover {
-  background: #f1f8ff;
-  color: #333;
+
+.nav li a:hover {
+  color: #3b82f6;
 }
-.headerTop ul li svg {
+
+.nav li svg {
   font-size: 20px;
 }
-.headerTop > div {
-  display: flex;
-  justify-content: space-between;
+
+/* ---------- hamburger ---------- */
+.menuBtn {
+  display: none;
   align-items: center;
-  gap: 25px;
-}
-.searchInput {
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(128, 128, 128, 0.32);
   border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
 }
-.searchInput input {
-  background-color: #f0f0f0;
-  width: 500px;
-  border: none;
-  padding: 20px;
-  outline: none;
-}
-.searchInput svg {
-  font-size: 25px;
-}
+
+/* ---------- auth / icons ---------- */
 .authBtn {
   border: 1px solid gray;
   padding: 10px 30px;
   background-color: transparent;
+  color: inherit;
   border-radius: 8px;
   font-weight: 500;
   font-size: 14px;
+  white-space: nowrap;
   cursor: pointer;
 }
+
 .cardIconWrapper {
   border: 1px solid rgba(128, 128, 128, 0.32);
   border-radius: 8px;
@@ -80,13 +101,16 @@
   justify-content: center;
   align-items: center;
 }
+
 .cardIconWrapper svg {
   font-size: 20px;
 }
+
 .cartIconWrapper {
   position: relative;
   cursor: pointer;
 }
+
 .cartCount {
   width: 25px;
   height: 25px;
@@ -99,78 +123,99 @@
   justify-content: center;
   align-items: center;
   background-color: rgb(255, 200, 0);
+  color: #1f2937;
+  font-size: 13px;
 }
 
-/* User Profile Menu */
+/* ---------- user profile menu ---------- */
 .userIcon {
   position: relative;
-}
-.userIcon:hover .userProfileMenu {
-  display: block;
+  cursor: pointer;
 }
 
 .userProfileMenu {
+  display: none;
   width: 280px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-width: calc(100vw - 32px);
   position: absolute;
-  top: 40px;
+  top: 100%;
   left: 0;
-  z-index: 3;
+  z-index: 30;
   padding: 25px 0;
   border-radius: 10px;
   font-size: 16px;
-  background-color: white;
-  color: rgb(56, 56, 56);
-  display: none;
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* دسکتاپ: با hover باز شود */
+@media (hover: hover) {
+  .userIcon:hover .userProfileMenu {
+    display: block;
+  }
+}
+
+/* موبایل/لمسی: با کلیک باز شود */
+@media (hover: none) {
+  .userProfileMenu.open {
+    display: block;
+  }
 }
 
 .userProfileMenu ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
+
 .userProfileMenu ul li {
   cursor: pointer;
 }
+
+.userProfileMenu ul li:hover {
+  background: var(--muted);
+}
+
 .userProfileMenu ul li a {
   display: block;
+  color: inherit;
+  text-decoration: none;
 }
+
 .userProfileMenu .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 8px 20px;
 }
-.userProfileMenu div:hover {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .userProfileMenu p {
   display: flex;
+  align-items: center;
   gap: 10px;
+  margin: 0;
 }
+
 .caretLeft {
   font-size: 13px !important;
 }
 
+/* ---------- skeleton ---------- */
 .skeletonAvatar {
   width: 40px;
   height: 40px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(
+    90deg,
+    var(--muted) 25%,
+    var(--border) 50%,
+    var(--muted) 75%
+  );
   background-size: 200% 100%;
   border-radius: 10px;
-  animation: skeleton-loading 1.2s infinite linear;
-}
-
-.skeletonName {
-  width: 60px;
-  height: 8px;
-  margin-top: 6px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  border-radius: 4px;
   animation: skeleton-loading 1.2s infinite linear;
 }
 
@@ -180,5 +225,73 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .nav {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .themeWrap {
+    margin-inline-end: auto;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 16px 16px;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .navOpen {
+    display: flex;
+  }
+
+  .nav li {
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav li:last-child {
+    border-bottom: none;
+  }
+
+  .nav li a {
+    padding: 14px 4px;
+  }
+
+  .headerTop > div:not(.themeWrap) {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerTop img {
+    width: 44px;
+  }
+
+  .authBtn {
+    padding: 8px 12px;
+    font-size: 13px;
   }
 }

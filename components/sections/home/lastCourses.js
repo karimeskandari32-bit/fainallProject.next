@@ -28,20 +28,25 @@ export default function LastCourses() {
   }, []);
 
   return (
-    <div className="container section dark:bg-slate-950">
+    <section className={`container section ${styles.wrapper}`}>
       <div className="sectionHeader">
         <p className="sectionTitle">آخرین دوره های آموزشی</p>
         <p className="sectionMore">همه دوره ها</p>
       </div>
-      <div className={styles.lastCourses}>
-        {loading ? (
-          <p>در حال لود دوره ها</p>
-        ) : (
-          courses.map((course) => (
+
+      {loading ? (
+        <p>در حال لود دوره ها...</p>
+      ) : error ? (
+        <p>خطا در دریافت دوره‌ها. لطفاً دوباره تلاش کنید.</p>
+      ) : courses.length === 0 ? (
+        <p>هنوز دوره‌ای ثبت نشده است.</p>
+      ) : (
+        <div className={styles.lastCourses}>
+          {courses.map((course) => (
             <CourseCard key={course._id} course={course} />
-          ))
-        )}
-      </div>
-    </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
