@@ -1,15 +1,31 @@
-import styles from './layout.module.css'
-import UserSidebar from '@/components/layout/userSideBar';
-export default function AdminLeyout({children}){
-    return (
-    <div className={styles.userLayout}>
-      <div className={styles.sidebarContainer}>
-        <UserSidebar/>
-      </div>
-      <div className={styles.contentContainer}>
-        {children}
-        {/* این بخش برای بارگذاری محتوای متغیر از صفحات مختلف استفاده می‌شود */}
-      </div>
+"use client";
+import { useState } from "react";
+import styles from "./layout.module.css";
+import UserSidebar from "@/components/layout/userSideBar";
+
+export default function UserLayout({ children }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className={styles.adminLayout}>
+      <button
+        className={styles.menuToggle}
+        onClick={() => setOpen(!open)}
+        aria-label="باز/بسته کردن منو"
+      >
+        {open ? "✕" : "☰"}
+      </button>
+
+      <div
+        className={`${styles.overlay} ${open ? styles.show : ""}`}
+        onClick={() => setOpen(false)}
+      />
+
+      <aside className={`${styles.sidebarContainer} ${open ? styles.open : ""}`}>
+        <UserSidebar />
+      </aside>
+
+      <main className={styles.contentContainer}>{children}</main>
     </div>
   );
 }

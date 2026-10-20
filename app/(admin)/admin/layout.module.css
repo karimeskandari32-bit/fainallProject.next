@@ -1,18 +1,98 @@
 .adminLayout {
   display: flex;
+  min-height: 100vh;
 }
+
+/* ---------- Sidebar ---------- */
 .sidebarContainer {
   width: 300px;
   height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 10;
+  z-index: 20;
+  overflow-y: auto;
   background: var(--sidebar-bg, #1f2937);
   color: var(--sidebar-text, #f9fafb);
+  transition: transform 0.3s ease;
 }
+
+/* ---------- Content ---------- */
 .contentContainer {
-  margin-right: 300px;
   flex: 1;
+  min-width: 0; /* جلوگیری از سرریز شدن محتوا در flex */
+  margin-right: 300px;
   padding: 20px;
+  transition: margin 0.3s ease;
+}
+
+/* ---------- Overlay (فقط موبایل) ---------- */
+.overlay {
+  display: none;
+}
+
+/* ---------- Toggle button (فقط موبایل) ---------- */
+.menuToggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 30;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--sidebar-bg, #1f2937);
+  color: var(--sidebar-text, #f9fafb);
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ---------- تبلت: سایدبار باریک‌تر ---------- */
+@media (max-width: 1024px) {
+  .sidebarContainer {
+    width: 240px;
+  }
+  .contentContainer {
+    margin-right: 240px;
+  }
+}
+
+/* ---------- موبایل: سایدبار به صورت drawer ---------- */
+@media (max-width: 768px) {
+  .sidebarContainer {
+    width: 280px;
+    max-width: 85vw;
+    transform: translateX(100%); /* مخفی، بیرون از سمت راست */
+  }
+
+  .sidebarContainer.open {
+    transform: translateX(0);
+  }
+
+  .contentContainer {
+    margin-right: 0;
+    padding: 70px 16px 16px; /* فضا برای دکمه منو */
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
