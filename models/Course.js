@@ -50,6 +50,7 @@ const CourseSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+      category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: false },
 
     shortDescription: {
       type: String,
