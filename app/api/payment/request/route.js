@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import connectToDB from "@/configs/db";
 import Order from "@/models/Order";
 import { getCurrentUser } from "@/utils/auth";
+import { calcDiscount } from "@/lib/discountCalc";
 
 export async function POST(req) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req) {
       );
     }
 
-    const { orderId } = await req.json();
+    const { orderId, code } = await req.json();
 
     if (!orderId) {
       return NextResponse.json(
@@ -53,6 +54,36 @@ export async function POST(req) {
       );
     }
 
+    // ===== اعمال کد تخفیف =====
+    let payable = order.totalPrice;
+
+    if (code && String(code).trim()) {
+      const discountResult = await calcDiscount(code, order);
+
+      if (discountResult.error) {
+        return NextResponse.json(
+          { success: false, message: discountResult.error },
+          { status: 400 },
+        );
+      }
+
+      order.discountCode = discountResult.discount.code;
+      order.discountAmount = discountResult.discountAmount;
+      payable = discountResult.finalPrice;
+    } else {
+      // اگر کاربر کد را برداشته، تخفیف قبلی پاک شود
+      order.discountCode = null;
+      order.discountAmount = 0;
+    }
+
+    // زرین‌پال مبلغ خیلی کم یا صفر را قبول نمی‌کند
+    if (payable < 1000) {
+      return NextResponse.json(
+        { success: false, message: "Payable amount is too low." },
+        { status: 400 },
+      );
+    }
+
     const response = await fetch(
       "https://sandbox.zarinpal.com/pg/v4/payment/request.json",
       {
@@ -64,7 +95,7 @@ export async function POST(req) {
         body: JSON.stringify({
           merchant_id: process.env.ZARINPAL_MERCHANT_ID,
           currency: "IRT",
-          amount: order.totalPrice,
+          amount: payable,
           callback_url: process.env.ZARINPAL_CALLBACK_URL,
           description: `Order ${order._id}`,
         }),
@@ -73,7 +104,7 @@ export async function POST(req) {
 
     const result = await response.json();
 
-    if (result.data.code !== 100) {
+    if (result.data?.code !== 100) {
       return NextResponse.json(
         {
           success: false,

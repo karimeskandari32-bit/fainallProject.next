@@ -14,53 +14,56 @@ export default function Cart() {
   const { cart, totalPrice, removeFromCart } = useCart();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [code, setCode] = useState("");
 
   const handleCheckout = async () => {
-     if (loading) return;
+  if (loading) return;
   setLoading(true);
-    try {
-      // 1-ساخت سفارش
-      const orderRes = await fetch("/api/orders", {
-        method: "POST",
-        body: JSON.stringify({
-          courseIds: cart.map((course) => course._id),
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  try {
+    // 1- ساخت سفارش
+    const orderRes = await fetch("/api/orders", {
+      method: "POST",
+      body: JSON.stringify({
+        courseIds: cart.map((course) => course._id),
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
 
-      const orderData = await orderRes.json();
-      console.log(orderData);
-      
-      if (!orderData.success) {
-        return toast.error("خطا هنگام ثبت سفارش");
-      }
+    const orderData = await orderRes.json();
 
-      // 2- درخواست لینک پرداخت
-      toast.success("در حال انتقال به درگاه پرداخت");
-
-      const paymentRes = await fetch("/api/payment/request", {
-        method: "POST",
-        body: JSON.stringify({ orderId: orderData.orderId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const paymentData = await paymentRes.json();
-      if (!paymentData.success) {
-        return toast.error("خطا در ارسال به درگاه پرداخت");
-      }
-
-      router.push(paymentData.paymentUrl);
-    } catch (err) {
-      toast.error("خطا در درگاه پرداخت");
+    if (!orderData.success) {
+      return toast.error("خطا هنگام ثبت سفارش");
     }
-    finally {
+
+    const orderId = orderData.orderId;
+
+    // 2- درخواست لینک پرداخت (با کد تخفیف، اگر وارد شده)
+    const paymentRes = await fetch("/api/payment/request", {
+      method: "POST",
+      body: JSON.stringify({ orderId, code: code.trim() }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const paymentData = await paymentRes.json();
+
+    if (!paymentData.success) {
+      console.log(paymentData); // برای دیدن علت دقیق در کنسول مرورگر
+      const msg = paymentData.message || "";
+      // پیام‌های تخفیف فارسی هستند و مستقیم نمایش داده می‌شوند
+      return toast.error(
+        /[\u0600-\u06FF]/.test(msg) ? msg : "خطا در ارسال به درگاه پرداخت",
+      );
+    }
+
+    toast.success("در حال انتقال به درگاه پرداخت");
+    router.push(paymentData.paymentUrl);
+  } catch (err) {
+    console.log(err);
+    toast.error("خطا در درگاه پرداخت");
+  } finally {
     setLoading(false);
   }
-  };
+};
 
   if (cart.length === 0) {
     return (
@@ -138,6 +141,16 @@ export default function Cart() {
               {totalPrice.toLocaleString()} تومان
             </span>
           </div>
+          <div className={styles.couponBox}>
+  <input
+    className={styles.couponInput}
+    value={code}
+    onChange={(e) => setCode(e.target.value.toUpperCase())}
+    placeholder="کد تخفیف (اختیاری)"
+    maxLength={20}
+    dir="ltr"
+  />
+</div>
 
           <button
             onClick={handleCheckout}

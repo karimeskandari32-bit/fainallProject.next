@@ -291,3 +291,24 @@
     margin-inline-start: auto;
   }
 }
+
+.couponBox {
+  margin: 16px 0;
+}
+.couponInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1.5px dashed #a5a8f5;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 1px;
+  text-align: center;
+  outline: none;
+}
+.couponInput:focus {
+  border-style: solid;
+  border-color: #5b5bf0;
+}
