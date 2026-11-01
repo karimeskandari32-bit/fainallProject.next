@@ -4,7 +4,7 @@ import { LuSearchX } from "react-icons/lu";
 import connectToDB from "@/configs/db";
 import Course from "@/models/Course";
 import CourseCard from "@/components/ui/CourseCard";
-import CoursesFilters from "@/components/sections/courses/CoursesFilters";
+import CoursesFilters from "@/components/sections/Courses/CoursesFilters";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
