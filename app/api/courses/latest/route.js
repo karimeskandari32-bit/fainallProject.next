@@ -7,7 +7,7 @@ export async function GET(req) {
     await connectToDB();
 
     const { searchParams } = new URL(req.url);
-    const limit = parseInt(searchParams.get("limit")) || 4;
+  const limit = parseInt(searchParams.get("limit")) || 4;
 
     const courses = await Course.find({ status: "published" })
       .sort({ createdAt: -1 })
